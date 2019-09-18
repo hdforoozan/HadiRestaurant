@@ -51,6 +51,6 @@ def dashboard(request):
 	except Profile.DoesNotExist:
 		profile = None
 		
-	return render(request, 'account/dashboard.html', {
+	return render(request, 'Account/dashboard.html', {
 	'username':username, 'email':email,'profile':profile,
 	})
