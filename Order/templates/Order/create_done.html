@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+  <title>Complete Order</title>
+{% endblock title %}
+
+{% block nav_bar %}
+  {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<main role="main">
+  <div class="jumbotron">
+    <div class="container">
+        <h1 class="display-3">Thank you</h1>
+    </div>
+  </div>
+
+  <div class="container">
+  	<p>Your order has been successfully completed. Your order number is <strong>{{ order.id }}</strong>.</p>
+  </div>
+    <hr>
+{% endblock content %}
+
+
+{% block footer %}
+    {{ block.super }}
+{% endblock %}

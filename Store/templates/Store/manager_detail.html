@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+  <title>Manager Detail</title>
+{% endblock title %}
+
+{% block nav_bar %}
+  {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<main role="main">
+  <div class="jumbotron">
+    <div class="container">
+      {% if user.is_staff and user.is_superuser %}
+      <h1 class="display-3">{{ manager.name }}</h1>
+      {% else %}
+      <h1 class="display-3">Page Not Found</h1>
+      {% endif %}
+    </div>
+  </div>
+  {% if user.is_staff and user.is_superuser %}
+  <div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+      <div class="col-md-4">
+        <h4>Address : {{ manager.address }}</h4>
+        <br/>
+      </div>
+      <div class="col-md-4">
+        <h4> Created : {{ manager.pub_date }}</h4>
+        <br/>
+      </div>
+      <div class="col-md-4">
+        <h4>Phone Number : {{ manager.phone_num }}</h4>
+        <br/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <img src="{{ manager.image.url }}" height="300" width="300">
+      </div>
+      <div class="col-md-4">
+        <h4>Education Degree : {{ manager.education_degree }}</h4>
+      </div>
+      <div class="col-md-1">
+        <a href="{% url 'manager-update' manager.pk %}"><input class="btn btn-primary" type="button" value="Update"></a>
+      </div>
+      <div class="col-md-1">
+        <a href="{% url 'manager-delete' manager.pk %}"><input class="btn btn-danger" type="button" value="Delete"></a>
+      </div>
+    </div>
+    {% endif %}
+  </div> <!-- /container -->
+  <hr>
+{% endblock content %}
+
+
+{% block footer %}
+    {{ block.super }}
+{% endblock %}

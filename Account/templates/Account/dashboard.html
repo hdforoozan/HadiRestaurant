@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  <title>Dashboard</title>
+{% endblock title %}
+
+{% block nav_bar %}
+  {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<main role="main">
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">Your Profile</h1>
+      {% if messages %}
+  			<ul class="messages">
+  				{% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+    					<li class="{{ message.tags }}">
+    					     {{ message|safe }}
+    					     <a href="{% url 'dashboard' %}" class="close">x</a>
+    					</li>
+            {% endif %}
+  				{% endfor %}
+  			</ul>
+		  {% endif %}
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        {% if profile %}
+        <img src="{{ profile.photo.url }}"  height="300" width="300"/>
+        {% else %}
+        <img src="{% static 'add.png' %}"  height="300" width="300"/>
+        {% endif %}
+      </div>
+      <div style="font-family:serif;" class="col-md-6">
+        <h4>Username : {{ username }}</h4>
+        <br>
+        <h4>Email : {{ email }}</h4>
+        <br>
+        <h4>Date of Birth : {{ profile.date_of_birth }}</h4>
+        <br>
+        <h4>Address : {{ profile.address }}</h4>
+        <br>
+        <h4>Phone Number : {{ profile.phone_num }}</h4>
+        <br>
+        <h4>Credit : {{ profile.credit }}</h4>
+      </div>
+    </div>
+    <br>
+    <br>
+    <a class="btn btn-primary" href="{% url 'edit' %}">Edit Profile</a>
+    <a class="btn btn-primary" href="{% url 'password_change' %}">Change Password</a>
+  </div>
+
+  <hr>
+{% endblock content %}
+
+{% block footer %}
+    {{ block.super }}
+{% endblock %}

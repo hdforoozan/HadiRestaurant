@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  <title>Place Order</title>
+{% endblock title %}
+
+{% block nav_bar %}
+  {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<main role="main">
+  <div class="jumbotron">
+    <div class="container">
+        <h1 class="display-3">Your Order</h1>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <ul>
+		  {% for item in cart %}
+		    <li>
+			    {{ item.quantity }}x {{ item.food.name }}
+			    <span>${{ item.total_price }}</span>
+		    </li>
+		  {% endfor %}
+      {% if cart.coupon %}
+    		<li>
+    			"{{ cart.coupon.code }}" ({{ cart.coupon.discount }}% off)
+    			<span>- ${{ cart.get_discount|floatformat:"2" }}</span>
+    		</li>
+  		{% endif %}
+	   </ul>
+    </div>
+
+    <div class="row">
+      <h4>Total: ${{ cart.get_total_price_after_discount|floatformat:"2" }}</h4>
+    </div>
+
+    <div class="row">
+        <form action="." method="post" class="order-form">
+          {% csrf_token %}
+        	{{ form.as_p }}
+        	<p><input class="btn btn-success" type="submit" value="Order"></p>
+        </form>
+    </div>
+  </div>
+  <hr>
+{% endblock content %}
+
+
+{% block footer %}
+    {{ block.super }}
+{% endblock %}

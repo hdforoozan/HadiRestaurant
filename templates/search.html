@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  <title>Search Food</title>
+{% endblock %}
+
+{% block nav_bar %}
+  {{ block.super }}
+{% endblock %}
+
+
+{% block content %}
+  <main role="main">
+  <div class="jumbotron">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <h1 class="display-3">Results</h1>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="col-md-4">
+          <br>
+          <form action="." method="post">
+            <h4>{{ search_form.as_p }}</h4>
+            <input style="margin-left:235px;"class="btn btn-primary" type="submit" value="Search">
+            {% csrf_token %}
+          </form>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Example row of columns -->
+    {% if search_foods %}
+    <div class="row">
+    {% for food in search_foods %}
+    {% with stores=food.stores.all %}
+      <div class="col-md-4">
+        <h2>{{ food.name }}</h2>
+        <img src="{{ food.image.url }}"  height="250" width="250" />
+        <h3>${{ food.price }}</h3>
+        <p>{{ food.detail }}</p>
+        {% for store in stores %}
+          <a href="{% url 'store-food-detail' store.id food.id  %}"><p style="display:inline;">Store No.{{ store.branch_num }}, </p></a>
+        {% endfor %}
+      </div>
+    {% endwith %}
+    {% endfor %}
+    {% else %}
+      <h2>{{ no_results }}</h2>
+    {% endif %}
+    </div>
+    <hr>
+  </div>
+
+{% endblock %}
+
+
+{% block footer %}
+    {{ block.super }}
+{% endblock %}

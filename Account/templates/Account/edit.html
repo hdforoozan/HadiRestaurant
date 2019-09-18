@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  <title>Update Profile</title>
+{% endblock title %}
+
+{% block nav_bar %}
+  {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<main role="main">
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">Edit your account</h1>
+      {% if messages %}
+  			<ul class="messages">
+  				{% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+    					<li class="{{ message.tags }}">
+    					     {{ message|safe }}
+    					     <a href="{% url 'edit' %}" class="close">x</a>
+    					</li>
+            {% endif %}
+  				{% endfor %}
+  			</ul>
+		  {% endif %}
+    </div>
+  </div>
+
+  <div class="container">
+  <p>You can edit your account using the following form:</p>
+	<form action="." method="post" enctype="multipart/form-data">
+		{{ user_form.as_p }}
+		{{ profile_form.as_p }}
+		{% csrf_token %}
+		<p><input class="btn btn-primary" type="submit" value="Save changes"></p>
+	</form>
+  </div>
+  <br>
+  <hr>
+{% endblock content %}
+
+{% block footer %}
+    {{ block.super }}
+{% endblock %}

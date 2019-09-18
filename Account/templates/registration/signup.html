@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  <title>Sign Up</title>
+{% endblock title %}
+
+{% block nav_bar %}
+  {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<main role="main">
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">Sign Up</h1>
+    </div>
+  </div>
+
+  <div class="container">
+    <form method="POST" action="{% url 'signup' %}">
+    {{ form.as_p }}
+    <input class="btn btn-success" type="submit" value="Sign Up">
+    {% csrf_token %}
+  </form>
+  </div>
+
+  <hr>
+{% endblock content %}
+
+
+{% block footer %}
+    {{ block.super }}
+{% endblock %}

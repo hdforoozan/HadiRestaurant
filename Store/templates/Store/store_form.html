@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  <title>Add Store</title>
+{% endblock title %}
+
+{% block nav_bar %}
+  {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<main role="main">
+  <div class="jumbotron">
+    <div class="container">
+      {% if user.is_staff and user.is_superuser %}
+      <h1 class="display-3">Add Store</h1>
+      {% else %}
+      <h1 class="display-3">Page Not Found</h1>
+      {% endif %}
+    </div>
+  </div>
+  {% if user.is_staff and user.is_superuser %}
+  <div class="container">
+    <form method="POST" action="{% url 'store-add' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input class="btn btn-success" type="submit" value="Save">
+  </form>
+  </div>
+  {% endif %}
+  <hr>
+{% endblock content %}
+
+
+{% block footer %}
+    {{ block.super }}
+{% endblock %}

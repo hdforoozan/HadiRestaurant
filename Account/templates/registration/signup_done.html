@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  <title>Signed Up</title>
+{% endblock title %}
+
+{% block nav_bar %}
+  {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<main role="main">
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">Welcome {{ user.username }} !</h1>
+    </div>
+  </div>
+
+  <div class="container">
+    <h3>Your account has been successfully created.Now you can <a href="{% url "login" %}">log in</a>.</h3>
+  </div>
+
+  <hr>
+{% endblock content %}
+
+
+{% block footer %}
+    {{ block.super }}
+{% endblock %}

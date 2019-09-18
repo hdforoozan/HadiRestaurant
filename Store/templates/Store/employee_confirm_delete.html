@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  <title>Delete Employee</title>
+{% endblock title %}
+
+{% block nav_bar %}
+  {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<main role="main">
+  <div class="jumbotron">
+    <div class="container">
+      {% if user.is_staff and user.is_superuser %}
+      <h1 class="display-3">Delete {{ employee.name }}</h1>
+      {% else %}
+      <h1 class="display-3">Page Not Found</h1>
+      {% endif %}
+    </div>
+  </div>
+  {% if user.is_staff and user.is_superuser %}
+  <div class="container">
+    <form method="POST" action="{% url 'employee-delete' employee.pk %}">
+    {% csrf_token %}
+    <h2>Are you sure you want to delete {{ employee.name }} ?</h2>
+    <br>
+    <input class="btn btn-danger" type="submit" value="Delete">
+  </form>
+  </div>
+  {% endif %}
+  <hr>
+{% endblock content %}
+
+
+{% block footer %}
+    {{ block.super }}
+{% endblock %}

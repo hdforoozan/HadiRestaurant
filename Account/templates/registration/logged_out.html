@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  <title>Logged Out</title>
+{% endblock title %}
+
+{% block nav_bar %}
+  {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<main role="main">
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">You Logged Out.</h1>
+      <h2><a href="{% url 'login' %}">Login</a> agian</h2>
+    </div>
+  </div>
+
+  <hr>
+{% endblock content %}
+
+
+{% block footer %}
+    {{ block.super }}
+{% endblock %}

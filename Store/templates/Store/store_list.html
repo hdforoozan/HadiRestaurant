@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+  <title>Stores List</title>
+{% endblock title %}
+
+{% block nav_bar %}
+  {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<main role="main">
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">Stores List</h1>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+    {% for store in stores %}
+      <div class="col-md-4">
+        <h2>Branch No {{ store.branch_num }}</h2>
+        <br/>
+        <img src="{{ store.image.url }}" height="250" width="250"/>
+        <br/>
+        <br/>
+        <h4>{{ store.address }}</h4>
+        <br>
+        <h5>Manager : {{ store.manager }}</h5>
+        <br>
+        <p><a class="btn btn-info" href="{% url 'store-detail' store.pk %}" role="button">View details &raquo;</a></p>
+      </div>
+    {% endfor %}
+    </div>
+    <hr>
+  </div> <!-- /container -->
+{% endblock content %}
+
+
+{% block footer %}
+    {{ block.super }}
+{% endblock %}

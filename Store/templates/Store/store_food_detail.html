@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+  <title>{{ food.name }}</title>
+{% endblock title %}
+
+{% block nav_bar %}
+  {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<main role="main">
+  <div class="jumbotron">
+    <div class="container">
+        <h1 class="display-3">{{ food.name }}</h1>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+      <div class="col-md-5">
+        <img src="{{ food.image.url }}" height="250" width="250" />
+      </div>
+      <div class="col-md-5">
+        <p>{{ food.description }}</p>
+      </div>
+      <br/>
+      <div class="col-md-5">
+        <h3>Price: ${{ food.price }}</h3>
+        <p>Contains: {{ food.detail }}</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5">
+        <form action="{% url "cart_add" food_id=food.pk store_id=store.id %}" method="post">
+      		{{ cart_food_form }}
+      		{% csrf_token %}
+      		<input class="btn btn-success" type="submit" value="Add to cart">
+      	</form>
+      </div>
+      <div class="col-md-6">
+        <h4>Comments for {{ food.name }} :</h4>
+        <br>
+        {% for comment,comment_time in food_comments %}
+          <h5 style="color:#002db3; display:inline;">{{ comment.user.username }}</h5>
+          <p style='display:inline;'> : {{ comment.comment }}</p>
+          <b style='display:inline; color:#34cb34;'>{{ comment_time }}</b>
+          <br>
+        {% endfor %}
+        <br>
+        <form action="{% url 'submit-comment' store.id food.id %}" method="post">
+      		{{ comment_form }}
+      		{% csrf_token %}
+      		<input class="btn btn-success" type="submit" value="Send">
+      	</form>
+      </div>
+    </div>
+  </div>
+    <hr>
+{% endblock content %}
+
+
+{% block footer %}
+    {{ block.super }}
+{% endblock %}

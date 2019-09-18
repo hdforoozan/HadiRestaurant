@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block nav_bar %}
+  {{ block.super }}
+{% endblock %}
+
+{% block content %}
+  <main role="main">
+  <div class="jumbotron">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <h1 class="display-3"><span style="color:blue">Hello</span>, Welcome</h1>
+          <h3>Welcome to your Restaurant. In this restaurant we want to give to the pleasure of tasting the best foods all around the world. thank you for choosing us.</h3>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="col-md-4">
+          <br>
+          <form action="{% url 'search' %}" method="post">
+            <h4>{{ search_form.as_p }}</h4>
+            <input style="margin-left:235px;"class="btn btn-primary" type="submit" value="Search">
+            {% csrf_token %}
+          </form>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Example row of columns -->
+    {% if most_sell_foods %}
+    <h2>Most Sell Foods</h2>
+    <br>
+    <div class="row">
+    {% for food in most_sell_foods %}
+      <div class="col-md-4">
+        <h2>{{ food.name }}</h2>
+        <img src="{{ food.image.url }}"  height="250" width="250" />
+        <h3>${{ food.price }}</h3>
+        <p>{{ food.detail }}</p>
+      </div>
+    {% endfor %}
+    </div>
+    {% endif %}
+    <hr>
+    <h2>Cheapest Foods</h2>
+    <br>
+    <div class="row">
+    {% for food in cheapest_foods %}
+      <div class="col-md-4">
+        <h2>{{ food.name }}</h2>
+        <img src="{{ food.image.url }}" height="250" width="250"/>
+        <h3>${{ food.price }}</h3>
+        <p>{{ food.detail }}</p>
+      </div>
+    {% endfor %}
+    </div>
+    <hr>
+  </div> <!-- /container -->
+{% endblock %}
+
+
+{% block footer %}
+    {{ block.super }}
+{% endblock %}

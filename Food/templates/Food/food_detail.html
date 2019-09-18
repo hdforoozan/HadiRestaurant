@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  <title>{{ food.name }}</title>
+{% endblock title %}
+
+{% block nav_bar %}
+  {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<main role="main">
+  <div class="jumbotron">
+    <div class="container">
+      {% if user.is_staff and user.is_superuser %}
+        <h1 class="display-3">{{ food.name }}</h1>
+      {% else %}
+        <h1 class="display-3">Page Not Found</h1>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Example row of columns -->
+    {% if user.is_staff and user.is_superuser %}
+    <div class="row">
+      <div class="col-md-5">
+        <img src="{{ food.image.url }}" height="250" width="250" />
+      </div>
+      <div class="col-md-5">
+        <p>{{ food.description }}</p>
+      </div>
+      <br/>
+      <div class="col-md-5">
+        <h3>Price: ${{ food.price }}</h3>
+        <p>Contains: {{ food.detail }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-1">
+        <a href="{% url 'food-update' food.pk %}"><input class="btn btn-primary" type="button" value="Update"></a>
+      </div>
+      <div class="col-md-1">
+        <a href="{% url 'food-delete' food.pk %}"><input class="btn btn-danger" type="button" value="Delete"></a>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+    <hr> <!-- /container -->
+{% endblock content %}
+
+
+{% block footer %}
+    {{ block.super }}
+{% endblock %}

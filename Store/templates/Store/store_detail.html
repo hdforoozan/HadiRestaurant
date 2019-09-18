@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+  <title>Branch No.{{ store.branch_num }}</title>
+{% endblock title %}
+
+{% block nav_bar %}
+  {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<main role="main">
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">Branch No. {{ store.branch_num }}</h1>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+      <div class="col-md-4">
+        <h4>{{ store.address }}</h4>
+        <br/>
+        <img src="{{ store.image.url }}" height="250" width="250" />
+        <br/>
+        <br/>
+        <h4>Manager : {{ store.manager }} </h4>
+        <h4>Monthly income : {{ monthly_income }} </h4>
+      </div>
+      <div class="col-md-3">
+        <h3>Employess :</h3>
+        <div class="pl-4">
+        {% for emp in employees %}
+            <p>{{ emp.name }}</p>
+            {% if user.is_staff and user.is_superuser %}
+              <div class="col-md-2">
+                <a href="{% url 'employee-detail' store.id emp.id %}"><input class="btn btn-info" type="button" value="Detail &raquo;"></a>
+              </div>
+              <br>
+            {% endif %}
+        {% endfor %}
+        </div>
+      </div>
+      {% if user.is_staff and user.is_superuser %}
+      <div class="col-md-1">
+        <a href="{% url 'store-update' store.pk %}"><input class="btn btn-primary" type="button" value="Update"></a>
+      </div>
+      <div class="col-md-1">
+        <a href="{% url 'store-delete' store.pk %}"><input class="btn btn-danger" type="button" value="Delete"></a>
+      </div>
+      <div class="col-md-1">
+        <a href="{% url 'manager-detail' store.manager.id %}"><input class="btn btn-info" type="button" value="Manager Detail &raquo;"></a>
+      </div>
+      {% endif %}
+    </div>
+    <br>
+    <div class="row">
+      <h1>Foods</h1>
+    </div>
+    <br>
+    <div class="row">
+      {% for food in foods %}
+      <div class="col-md-4">
+        <h2>{{ food.name }}</h2>
+        <img src="{{ food.image.url }}" height="250" width="250" />
+        <h3>${{ food.price }}</h3>
+        <p>{{ food.detail }}</p>
+        <p><a class="btn btn-info" href="{% url 'store-food-detail' pk=store.id food_id=food.id %}" role="button">View details &raquo;</a></p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+    <br/>
+    <hr>
+{% endblock content %}
+
+{% block footer %}
+    {{ block.super }}
+{% endblock %}
