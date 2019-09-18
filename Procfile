@@ -1,0 +1,1 @@
+web: gunicorn hadirestaurant.wsgi --log-file -
