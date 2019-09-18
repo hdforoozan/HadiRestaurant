@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'Comment.apps.CommentConfig',
     'Coupon.apps.CouponConfig',
     'Order.apps.OrderConfig',
-    # 'whitenoise.runserver_nostatic', 
+    'whitenoise.runserver_nostatic', 
 
     #Default apps
     'django.contrib.admin',
@@ -76,7 +76,7 @@ REST_FRAMEWORK = {
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    # 'whitenoise.middleware.WhiteNoiseMiddleware', 
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -164,7 +164,7 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default login and logout urls
 
